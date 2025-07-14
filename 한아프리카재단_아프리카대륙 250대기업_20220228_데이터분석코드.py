@@ -116,6 +116,14 @@ df_final = df_all_iso.merge(df_pivot, on='iso 2자리코드', how='left').fillna
 category_cols = [col for col in df_final.columns if col != 'iso 2자리코드']
 df_final = df_final[df_final[category_cols].sum(axis=1) > 0]
 
-# 9. 저장 및 출력
+# 9. 결과 저장
 df_final.to_csv("AI학습용_아프리카진출기업_분류데이터.csv", index=False, encoding='utf-8-sig')
+
+# 10. 결과 확인
+
+print(f"총 게시글 수 (전체 기업 수): {len(df)}")
+df_valid = df[df['카테고리리스트'].apply(lambda x: len(x) > 0)]
+print(f"AI 학습용으로 분류된 아프리카진출기업 데이터 수: {len(df_valid)}")
+print(f"최종 포함된 아프리카 국가 수: {len(df_final)}")
+print("\n=== 샘플 데이터 ===")
 print(df_final.head())
